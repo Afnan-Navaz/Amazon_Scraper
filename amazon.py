@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
 
-link=input("Enter URL: ")
+link=input("ASIN: ")
 headers = {'User-agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36'}
-url=requests.get(link).text
+url=requests.get('https://www.amazon.in/dp/'+link+'?tag=YOURASSOCIATEID').text
 soup=BeautifulSoup(url,'lxml')
 if soup.find('h1', id='title').span['id'] == "productTitle":
 	xid='productTitle'
