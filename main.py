@@ -8,4 +8,5 @@ for i in range(76):
 	pageScan(x)
 	c=driver.find_element_by_xpath('//span[@id="pagnNextString"]')
 	c.click()
+
 driver.close()
