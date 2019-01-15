@@ -7,6 +7,7 @@ import re
 from torrequest import TorRequest
 
 def pageSpr(link):
+	dic={}
 	ua = UserAgent()
 	headers = {'User-agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36 ua.random'}
 	tr=TorRequest(1234)
@@ -20,22 +21,25 @@ def pageSpr(link):
 			xid='ebooksProductTitle'
 	except (AttributeError, TypeError):
 		pass
-	print("")
 	try:
-		print("TITLE = "+soup.find('span', id=xid).text)
+		dic["TITLE"]=soup.find('span', id=xid).text
 	except (AttributeError, TypeError, UnboundLocalError):
+		dic["TITLE"]=" "
 		pass
 	try:
-		print("AUTHOR = "+soup.find('a', class_='contributorNameID').text)
+		dic["AUTHOR"]=soup.find('a', class_='contributorNameID').text
 	except (AttributeError, TypeError):
+		dic["AUTHOR"]=" "
 		pass
 	try:
-		print("NO OF REVIEWS = "+soup.find('span', id='acrCustomerReviewText').text)
+		dic["NO OF REVIEWS"]=soup.find('span', id='acrCustomerReviewText').text
 	except (AttributeError, TypeError):
+		dic["NO OF REVIEWS"]=" "
 		pass
 	try:
-		print("RATING = "+soup.find('span', id='acrPopover')['title'])
+		dic["RATING"]=soup.find('span', id='acrPopover')['title']
 	except (AttributeError, TypeError):
+		dic["RATING"]=" "
 		pass
 	try:
 		price=soup.find('div', id='twister').find_all('div', class_='top-level')
@@ -44,22 +48,23 @@ def pageSpr(link):
 	try:
 		for i in price:
 			try:
-				print(i.find('span', class_='a-color-base').text+" = "+i.find('span', class_='a-color-price').text)
+				dic[i.find('span', class_='a-color-base').text]=i.find('span', class_='a-color-price').text
 			except (AttributeError, TypeError):
 				continue
 	except (UnboundLocalError):
 		pass
 	try:
 		prodet=soup.find('div', id='detail_bullets_id').ul.find_all('li')
-	except (AttributeError, TypeError):
+	except (AttributeError, TypeError, ValueError):
 		pass
 	try:
 		for pro in prodet:
 			try:
 				prod=str(pro.text).split(" ")
 				if len(prod)==2:
-					print(prod[0]+" = "+prod[1])
-			except (AttributeError, TypeError):
+					dic[prod[0]]=[prod[1]]
+			except (AttributeError, TypeError, ValueError):
 				continue
 	except (UnboundLocalError):
 		pass
+	return dic
