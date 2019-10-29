@@ -5,7 +5,6 @@ import requests
 import random
 import re
 from torrequest import TorRequest
-
 def pageSpr(link):
 	dic={}
 	ua = UserAgent()
