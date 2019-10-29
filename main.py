@@ -2,7 +2,6 @@ from ASINmkr import pageScan
 from selenium import webdriver
 from data import pageSpr
 import csv
-
 cs=open("result.csv", mode="w")
 fieldnames=['TITLE','AUTHOR','NO OF REVIEWS','RATING','Kindle Edition','Hardcover','Paperbac','Language:','ISBN-10:','ISBN-13:','ASIN:']
 writer=csv.DictWriter(cs, fieldnames=fieldnames, extrasaction='ignore')
@@ -16,6 +15,5 @@ for i in range(76):
 		writer.writerow(pageSpr(l))
 	c=driver.find_element_by_xpath('//span[@id="pagnNextString"]')
 	c.click()
-
 driver.close()
 cs.close()
