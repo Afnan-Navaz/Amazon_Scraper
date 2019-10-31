@@ -3,6 +3,7 @@ from selenium import webdriver
 from data import pageSpr
 import csv
 
+if __name__ == "__main__" :
 cs=open("result.csv", mode="w")
 fieldnames=['TITLE','AUTHOR','NO OF REVIEWS','RATING','Kindle Edition','Hardcover','Paperbac','Language:','ISBN-10:','ISBN-13:','ASIN:']
 writer=csv.DictWriter(cs, fieldnames=fieldnames, extrasaction='ignore')
